@@ -10,7 +10,7 @@
   <title>Fanta Random</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icons/icon-180.png" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <div id="app">
@@ -29,6 +29,14 @@
           <article class="metric"><span>Slot</span><strong id="slotsMetric">25</strong></article>
           <article class="metric accent"><span>Max bid</span><strong id="maxBidMetric">476</strong></article>
         </div>
+
+        <section class="slot-needs" aria-labelledby="slotNeedsTitle">
+          <div class="slot-needs-head">
+            <span id="slotNeedsTitle">Da prendere</span>
+            <strong><span id="slotsNeededTotal">25</span> giocatori</strong>
+          </div>
+          <div id="roleNeeds" class="role-needs"></div>
+        </section>
 
         <section class="panel search-panel">
           <label for="searchInput">Giocatore estratto</label>
@@ -49,17 +57,27 @@
       </section>
 
       <section id="tab-rimasti" class="tab">
-        <section class="panel">
-          <div class="panel-head"><div><h2>Radar rimasti</h2><p>Quanti giocatori restano per ruolo e fascia.</p></div></div>
-          <div class="tier-legend">
-            <span><b>S</b> Top</span><span><b>A</b> Prima fascia</span><span><b>B</b> Buoni titolari</span><span><b>C</b> Rotazione</span><span><b>D</b> Scommesse</span>
+        <section class="panel target-panel">
+          <div class="panel-head target-head">
+            <div><div class="target-eyebrow">PRIORITÀ ASTA</div><h2>Target disponibili</h2><p id="targetsSubtitle">I giocatori che hai segnato con ★.</p></div>
+            <span id="targetsCount" class="target-count">0</span>
           </div>
-          <div id="radarGrid" class="radar-grid"></div>
-        </section>
-        <section class="panel">
-          <div class="panel-head"><div><h2>Target ancora disponibili</h2><p>I giocatori che hai segnato con ★.</p></div></div>
+          <div id="targetRoleTabs" class="target-tabs" aria-label="Filtra target per ruolo"></div>
           <div id="targetsList" class="player-list"></div>
         </section>
+
+        <details class="panel radar-accordion">
+          <summary>
+            <span><strong>Dettaglio giocatori rimasti</strong><small>Per ruolo e fascia S/A/B/C/D</small></span>
+            <span class="accordion-icon" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="radar-content">
+            <div class="tier-legend">
+              <span><b>S</b> Top</span><span><b>A</b> Prima fascia</span><span><b>B</b> Buoni titolari</span><span><b>C</b> Rotazione</span><span><b>D</b> Scommesse</span>
+            </div>
+            <div id="radarGrid" class="radar-grid"></div>
+          </div>
+        </details>
       </section>
 
       <section id="tab-miei" class="tab">
@@ -133,6 +151,17 @@
   </dialog>
 
   <div id="toast" class="toast" role="status"></div>
-  <script src="app.js?v=3"></script>
+  <script>
+    // Rimuove definitivamente eventuali service worker e cache delle versioni precedenti.
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations =>
+        Promise.all(registrations.map(registration => registration.unregister()))
+      );
+    }
+    if ('caches' in window) {
+      caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
+    }
+  </script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

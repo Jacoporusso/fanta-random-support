@@ -1,6 +1,6 @@
 # Fanta Random MVP — installazione e uso
 
-PWA personale per asta Fantacalcio **Classic full random**.
+Web app personale per asta Fantacalcio **Classic full random**.
 
 ## Cosa fa
 
@@ -12,7 +12,7 @@ PWA personale per asta Fantacalcio **Classic full random**.
 - mostra solo **i tuoi** crediti, slot, rosa e Max Bid;
 - mostra il radar dei giocatori ancora disponibili per ruolo/fascia;
 - permette di segnare target personali con ★;
-- funziona offline dopo il primo caricamento del listone;
+- include il listone nel progetto, senza dipendere da GitHub durante l'uso;
 - permette backup/ripristino;
 - permette il **Reset asta** senza perdere configurazione, fasce e preferiti.
 
@@ -36,9 +36,9 @@ La fonte di riferimento è il **Listone ufficiale Fantacalcio 2026/27 Classic**:
 
 https://www.fantacalcio.it/quotazioni-fantacalcio
 
-Il download ufficiale Excel richiede il flusso del sito/app. Per rendere questa PWA autonoma, il primo caricamento usa una copia strutturata pubblica che dichiara come fonte le quotazioni Fantacalcio.it e contiene ruolo Classic, squadra, quotazione e FVM. L'app filtra i giocatori marcati come non più attivi e salva poi il listone sul telefono.
+Il download ufficiale Excel richiede il flusso del sito/app. L'app include una copia strutturata pubblica che dichiara come fonte le quotazioni Fantacalcio.it e contiene ruolo Classic, squadra, quotazione e FVM. L'app filtra i giocatori marcati come non più attivi e salva poi il listone nel browser.
 
-Prima dell'asta puoi premere **Impostazioni → Aggiorna** mentre sei online. Una volta sincronizzato, durante l'asta non serve connessione.
+Prima dell'asta puoi premere **Impostazioni → Aggiorna**. Il file locale viene usato per primo; le sorgenti online restano disponibili come fallback.
 
 ## Configurazione consigliata
 
@@ -76,7 +76,7 @@ Il reset:
 3. Assicurati che il branch principale si chiami `main`.
 4. In GitHub vai in **Settings → Pages**.
 5. In `Build and deployment` scegli **GitHub Actions**.
-6. Il workflow incluso pubblicherà automaticamente la PWA.
+6. Il workflow incluso pubblicherà automaticamente la web app.
 7. Apri su iPhone l'indirizzo GitHub Pages generato.
 8. Lascia che il listone venga caricato almeno una volta mentre sei online.
 9. In Safari: **Condividi → Aggiungi alla schermata Home**.
@@ -94,5 +94,4 @@ Fai questa prova una volta:
 5. compra un giocatore con `Mio` e verifica crediti/Max Bid;
 6. prova `↶ Annulla`;
 7. prova `Reset asta`;
-8. metti l'iPhone in modalità aereo e riapri l'app per verificare l'offline.
-
+8. chiudi e riapri l'app per verificare che configurazione e asta siano state salvate.
