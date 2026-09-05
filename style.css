@@ -309,6 +309,12 @@ textarea {
   padding: 13px 14px;
   outline: none;
 }
+input[type="text"],
+input[type="number"],
+textarea {
+  /* Safari iOS applica lo zoom automatico ai campi sotto i 16px. */
+  font-size: 16px;
+}
 input:focus,
 textarea:focus {
   border-color: var(--blue);
@@ -555,6 +561,12 @@ textarea {
   background: rgba(7, 16, 29, 0.97);
   backdrop-filter: blur(18px);
   border-top: 1px solid var(--line);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+body.keyboard-open .bottom-nav {
+  transform: translateY(110%);
+  opacity: 0;
+  pointer-events: none;
 }
 .bottom-nav button {
   border: 0;
@@ -575,11 +587,22 @@ textarea {
 }
 dialog {
   width: min(92vw, 430px);
+  max-height: calc(var(--visual-viewport-height, 100dvh) - 24px);
   border: 1px solid var(--line);
   background: var(--panel);
   color: var(--text);
   border-radius: 18px;
   padding: 18px;
+  overflow-y: auto;
+}
+dialog[open] {
+  position: fixed;
+  top: var(--visual-viewport-center, 50%);
+  right: 0;
+  bottom: auto;
+  left: 0;
+  margin: 0 auto;
+  transform: translateY(-50%);
 }
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.65);

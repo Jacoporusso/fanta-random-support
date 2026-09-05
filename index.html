@@ -10,7 +10,7 @@
   <title>Fanta Random</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icons/icon-180.png" />
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
 </head>
 <body>
   <div id="app">
@@ -144,7 +144,7 @@
       <p id="buyPlayerMeta"></p>
       <label>Prezzo<input id="buyPrice" type="number" min="1" inputmode="numeric" required /></label>
       <div class="dialog-actions">
-        <button value="cancel" class="ghost">Annulla</button>
+        <button id="cancelBuyBtn" type="button" class="ghost">Annulla</button>
         <button id="confirmBuyBtn" value="default" class="primary">Comprato da me</button>
       </div>
     </form>
@@ -162,6 +162,6 @@
       caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
     }
   </script>
-  <script src="app.js?v=10"></script>
+  <script src="app.js?v=12"></script>
 </body>
 </html>

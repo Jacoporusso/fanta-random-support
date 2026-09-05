@@ -442,9 +442,17 @@
     $('#clearSearchBtn').addEventListener('click', () => { query = ''; activeRole = 'ALL'; $('#searchInput').value = ''; renderChips(); renderPlayers(); });
     $('#undoBtn').addEventListener('click', () => { const last = state.history.pop(); if (last) { state.players = last.players; save(); toast('Ultima azione annullata'); } });
     $('#refreshListBtn').addEventListener('click', () => syncList(true));
+    $('#cancelBuyBtn').addEventListener('click', () => $('#buyDialog').close());
+
+    $('#buyDialog').addEventListener('click', event => {
+      const dialog = event.currentTarget;
+      const bounds = dialog.getBoundingClientRect();
+      const outside = event.clientX < bounds.left || event.clientX > bounds.right ||
+        event.clientY < bounds.top || event.clientY > bounds.bottom;
+      if (outside) dialog.close();
+    });
 
     $('#buyForm').addEventListener('submit', event => {
-      if (event.submitter?.value === 'cancel') return;
       event.preventDefault();
       const player = state.players.find(candidate => candidate.id === pendingBuyId);
       const price = Number($('#buyPrice').value);
@@ -496,10 +504,29 @@
     });
   }
 
+  function setupMobileViewport() {
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+    const update = () => {
+      document.documentElement.style.setProperty('--visual-viewport-height', `${viewport.height}px`);
+      document.documentElement.style.setProperty('--visual-viewport-center', `${viewport.offsetTop + viewport.height / 2}px`);
+      document.body.classList.toggle('keyboard-open', viewport.height < window.innerHeight * 0.75);
+    };
+    viewport.addEventListener('resize', update);
+    viewport.addEventListener('scroll', update);
+    update();
+
+    document.addEventListener('focusin', event => {
+      if (!event.target.matches('input, textarea')) return;
+      setTimeout(() => event.target.scrollIntoView({ block: 'center', behavior: 'smooth' }), 250);
+    });
+  }
+
   function initialize() {
     try {
       state = loadState();
       bindEvents();
+      setupMobileViewport();
       render();
       if (!state.players.length) syncList();
     } catch (error) {
