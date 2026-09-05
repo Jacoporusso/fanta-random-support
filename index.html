@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Fanta Random" />
+  <title>Fanta Random</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">ASTA FULL RANDOM</div>
+        <h1 id="teamTitle">Fanta Random</h1>
+      </div>
+      <button id="undoBtn" class="ghost" disabled>↶ Annulla</button>
+    </header>
+
+    <main>
+      <section id="tab-asta" class="tab active">
+        <div class="metrics">
+          <article class="metric"><span>Crediti</span><strong id="creditsMetric">500</strong></article>
+          <article class="metric"><span>Slot</span><strong id="slotsMetric">25</strong></article>
+          <article class="metric accent"><span>Max bid</span><strong id="maxBidMetric">476</strong></article>
+        </div>
+
+        <section class="panel search-panel">
+          <label for="searchInput">Giocatore estratto</label>
+          <input id="searchInput" type="search" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Scrivi il nome…" />
+          <div class="chips" id="roleChips"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Disponibili</h2>
+              <p id="availableSubtitle">Caricamento listone…</p>
+            </div>
+            <button id="clearSearchBtn" class="ghost small">Reset filtri</button>
+          </div>
+          <div id="playerList" class="player-list"></div>
+        </section>
+      </section>
+
+      <section id="tab-rimasti" class="tab">
+        <section class="panel">
+          <div class="panel-head"><div><h2>Radar rimasti</h2><p>Quanti giocatori restano per ruolo e fascia.</p></div></div>
+          <div class="tier-legend">
+            <span><b>S</b> Top</span><span><b>A</b> Prima fascia</span><span><b>B</b> Buoni titolari</span><span><b>C</b> Rotazione</span><span><b>D</b> Scommesse</span>
+          </div>
+          <div id="radarGrid" class="radar-grid"></div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div><h2>Target ancora disponibili</h2><p>I giocatori che hai segnato con ★.</p></div></div>
+          <div id="targetsList" class="player-list"></div>
+        </section>
+      </section>
+
+      <section id="tab-miei" class="tab">
+        <section class="panel">
+          <div class="panel-head"><div><h2>La mia rosa</h2><p id="myTeamSubtitle"></p></div></div>
+          <div id="myPlayersList" class="player-list"></div>
+        </section>
+      </section>
+
+      <section id="tab-dati" class="tab">
+        <section class="panel">
+          <div class="panel-head"><div><h2>Configurazione asta</h2><p>Solo i tuoi dati. Nessuna informazione sulle altre squadre.</p></div></div>
+          <form id="settingsForm" class="form-grid">
+            <label>Nome squadra<input id="teamName" type="text" /></label>
+            <label>Budget asta<input id="initialCredits" type="number" min="1" inputmode="numeric" /></label>
+            <label>Offerta minima<input id="minBid" type="number" min="1" inputmode="numeric" /></label>
+            <div>
+              <div class="field-caption">Slot rosa</div>
+              <div class="role-slots">
+                <label>P<input id="slotsP" type="number" min="0" inputmode="numeric" /></label>
+                <label>D<input id="slotsD" type="number" min="0" inputmode="numeric" /></label>
+                <label>C<input id="slotsC" type="number" min="0" inputmode="numeric" /></label>
+                <label>A<input id="slotsA" type="number" min="0" inputmode="numeric" /></label>
+              </div>
+            </div>
+            <button type="submit" class="primary">Salva configurazione</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div><h2>Listone</h2><p id="sourceStatus">Caricamento del listone Classic 2026/27…</p></div>
+            <button id="refreshListBtn" class="secondary small">Aggiorna</button>
+          </div>
+          <p class="hint">Le fasce S/A/B/C/D sono gestite automaticamente per ruolo sulla base dell'ordine FVM. Durante l'asta non devi configurarle.</p>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><div><h2>Backup</h2><p>Salva o ripristina l’intera asta sul telefono.</p></div></div>
+          <div class="button-row">
+            <button id="exportBtn" class="secondary">Esporta backup</button>
+            <label class="file-button secondary">Ripristina backup<input id="backupFile" type="file" accept="application/json,.json" /></label>
+          </div>
+        </section>
+
+        <section class="panel danger-zone">
+          <div class="panel-head"><div><h2>Reset asta</h2><p>Rende di nuovo disponibili tutti i giocatori e riporta i crediti al budget iniziale. Mantiene configurazione, listone, fasce e preferiti ★.</p></div></div>
+          <button id="resetAuctionBtn" class="danger">Reset asta</button>
+        </section>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button data-tab="asta" class="active">⚡<span>Asta</span></button>
+      <button data-tab="rimasti">◫<span>Rimasti</span></button>
+      <button data-tab="miei">♟<span>Miei</span></button>
+      <button data-tab="dati">⚙<span>Impostazioni</span></button>
+    </nav>
+  </div>
+
+  <dialog id="buyDialog">
+    <form method="dialog" id="buyForm">
+      <h3 id="buyPlayerName">Acquisto</h3>
+      <p id="buyPlayerMeta"></p>
+      <label>Prezzo<input id="buyPrice" type="number" min="1" inputmode="numeric" required /></label>
+      <div class="dialog-actions">
+        <button value="cancel" class="ghost">Annulla</button>
+        <button id="confirmBuyBtn" value="default" class="primary">Comprato da me</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js?v=3"></script>
+</body>
+</html>

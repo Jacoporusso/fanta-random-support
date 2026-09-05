@@ -1,0 +1,22 @@
+{
+  "name": "Fanta Random - Asta Tracker",
+  "short_name": "Fanta Random",
+  "description": "Tracker offline personale per asta Fantacalcio Classic full random",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07101d",
+  "theme_color": "#0b1220",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
