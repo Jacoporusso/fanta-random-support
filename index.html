@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#0b1220" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -10,7 +10,7 @@
   <title>Fanta Random</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icons/icon-180.png" />
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
   <div id="app">
@@ -142,9 +142,9 @@
     <form method="dialog" id="buyForm">
       <h3 id="buyPlayerName">Acquisto</h3>
       <p id="buyPlayerMeta"></p>
-      <label>Prezzo<input id="buyPrice" type="number" min="1" inputmode="numeric" required /></label>
+      <label>Prezzo<input id="buyPrice" type="number" min="1" inputmode="numeric" enterkeyhint="done" style="font-size:16px" required /></label>
       <div class="dialog-actions">
-        <button id="cancelBuyBtn" type="button" class="ghost">Annulla</button>
+        <button id="cancelBuyBtn" value="cancel" formnovalidate class="ghost">Annulla</button>
         <button id="confirmBuyBtn" value="default" class="primary">Comprato da me</button>
       </div>
     </form>
@@ -162,6 +162,6 @@
       caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
     }
   </script>
-  <script src="app.js?v=12"></script>
+  <script src="app.js?v=13"></script>
 </body>
 </html>

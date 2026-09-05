@@ -442,8 +442,6 @@
     $('#clearSearchBtn').addEventListener('click', () => { query = ''; activeRole = 'ALL'; $('#searchInput').value = ''; renderChips(); renderPlayers(); });
     $('#undoBtn').addEventListener('click', () => { const last = state.history.pop(); if (last) { state.players = last.players; save(); toast('Ultima azione annullata'); } });
     $('#refreshListBtn').addEventListener('click', () => syncList(true));
-    $('#cancelBuyBtn').addEventListener('click', () => $('#buyDialog').close());
-
     $('#buyDialog').addEventListener('click', event => {
       const dialog = event.currentTarget;
       const bounds = dialog.getBoundingClientRect();
@@ -453,6 +451,7 @@
     });
 
     $('#buyForm').addEventListener('submit', event => {
+      if (event.submitter?.value === 'cancel') return;
       event.preventDefault();
       const player = state.players.find(candidate => candidate.id === pendingBuyId);
       const price = Number($('#buyPrice').value);

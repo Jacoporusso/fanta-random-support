@@ -3,7 +3,7 @@
   "short_name": "Fanta Random",
   "description": "Tracker personale per asta Fantacalcio Classic full random",
   "id": "./",
-  "start_url": "./",
+  "start_url": "./?app=v13",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
